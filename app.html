@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src='dist/fhir-client-v2.js'></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+  <h1>Patient Demographics</h1>
+  <div id="box">
+    <table>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Mobile</th>
+      </tr>
+      <tr>
+        <td id="firstName"></td>
+        <td id="lastName"></td>
+        <td id="mobile"></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>Language</th>
+        <th>Gender</th>
+        <th>DOB</th>
+      </tr>
+      <tr>
+        <td id="language"></td>
+        <td id="gender"></td>
+        <td id="DOB"></td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>Address</th>
+      </tr>
+      <tr>
+        <td id="address"></td>
+      </tr>
+    </table>
+  </div>
+  <script src="app.js"></script>
+</body>
+
+</html>

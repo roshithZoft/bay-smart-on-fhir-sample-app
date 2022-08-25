@@ -1,0 +1,26 @@
+Notes:
+
+FHIR client at https://github.com/smart-on-fhir/client-js
+
+This codebase can be used against EPIC EHR and Cerner EHR by only changing the client id .
+
+Actual epic-1 code	
+  <script>
+		FHIR.oauth2.authorize({
+      'client_id': 'xyz',
+'scope':  'user/PATIENT.READ, user/PATIENT.SEARCH, user/OBSERVATION.READ, user/OBSERVATION.SEARCH',
+      'redirect_uri': 'https://epic-1.abhishekkini.repl.co/app.html'
+    });
+	</script> -->
+
+Actual Cerner Code
+<script>
+		FHIR.oauth2.authorize({
+      'client_id': 'xyz',
+       'scope':  'user/Patient.read launch openid profile',
+      'redirect_uri': 'https://fhirIntro.abhishekkini.repl.co/app.html'
+    });
+	</script>
+
+Here we are okay that we can use the scope that of Cerner in Epic context also.So we need to change the client id only.
+

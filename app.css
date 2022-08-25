@@ -1,0 +1,27 @@
+ #label{
+       margin:1em; 
+       padding:1em;
+       display:inline-table;
+     }
+ p{
+       margin:1em; 
+       padding:1em;
+    }
+    #box{
+      border:1px solid black;
+    }
+
+    table {
+    font-family: arial, sans-serif;
+    width: 100%;
+  }
+  
+  td, th {
+    text-align: left;
+    padding: 8px;
+      width:25%;
+  }
+  tr{
+    width:100%
+  }
+  

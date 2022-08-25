@@ -1,0 +1,25 @@
+
+#clientid{
+padding-left: 20%;
+padding-top: 10%;
+}
+#head{
+padding-left: 42%;
+}
+h1{
+    text-shadow: 2px 2px rgb(5, 12, 216);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+label{
+    font-weight: bolder;
+}
+input{
+    width: 50%;
+  }
+
+button{
+    background-color: rgb(12, 64, 12);
+    border-radius: 4px;
+    color: aliceblue;
+    text-decoration: solid;
+  }
