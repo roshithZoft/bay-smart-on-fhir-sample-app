@@ -60,6 +60,9 @@ async function userRequests() {
   var decodedToken = parseJwt(JSON.stringify(idToken));
   console.log(decodedToken)
 
+  var decodedIdTokenUsingLibrary=jwt_decode(idToken);
+  console.log(decodedIdTokenUsingLibrary)
+
   $("#ulastName").html(lastName)
   $("#ufirstName").html(firstName)
   $("#uid").html(id)
