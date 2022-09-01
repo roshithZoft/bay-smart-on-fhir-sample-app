@@ -40,11 +40,11 @@ async function patientRequests() {
 
 async function userRequests() {
 
-    if(myApp.smart.user.fhirUser !== undefined)
+    if(myApp.smart.user.fhirUser === undefined)
     {
       console.log("inside userRequest() method")
     }
-    
+
   var userDetails = await fetch(myApp.smart.user.fhirUser, {
     headers: {
       "Accept": "application/json+fhir",
