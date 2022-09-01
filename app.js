@@ -85,7 +85,8 @@ async function userRequests() {
 
 function displayToken(token){
     var tokenResponse = JSON.stringify(token, null, "\t");
-    var idToken = myApp.smart.state.tokenResponse.id_token;
+    var idToken = tokenResponse.id_token;
+    var refreshToken=tokenResponse.refreshToken;
   
     // var decodedToken = parseJwt(JSON.stringify(idToken));
     // console.log(decodedToken)
@@ -95,6 +96,7 @@ function displayToken(token){
 
     $('#tokenResponse').html(tokenResponse)
     $('#decodedId').html(JSON.stringify(decodedIdTokenUsingLibrary, null, "\t"))
+    $('#refreshToken').html(refreshToken)
 };
 
 function parseJwt(token) {
