@@ -3,6 +3,10 @@ FHIR.oauth2.ready()
   .then(function(client) {
     myApp.smart = client
     patientRequests()
+    if(myApp.smart.user.fhirUser === undefined)
+    {
+      console.log("before userRequest() method")
+    }
     userRequests();
   });
 
