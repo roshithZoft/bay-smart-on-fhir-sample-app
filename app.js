@@ -39,6 +39,12 @@ async function patientRequests() {
 }
 
 async function userRequests() {
+
+    if(myApp.smart.user.fhirUser !== undefined)
+    {
+      console.log("inside userRequest() method")
+    }
+    
   var userDetails = await fetch(myApp.smart.user.fhirUser, {
     headers: {
       "Accept": "application/json+fhir",
@@ -47,6 +53,8 @@ async function userRequests() {
   }).then(function(data) {
     return data
   });
+
+
   var userResponse = await userDetails.json()
   console.log(userResponse)
   
