@@ -85,8 +85,8 @@ async function userRequests() {
 
 function displayToken(token){
     var tokenResponse = JSON.stringify(token, null, "\t");
-    var idToken = token.id_token;
-    var refreshToken=token.refresh_token;
+    var idToken = myApp.smart.state.tokenResponse.id_token;
+    var refreshToken=myApp.smart.state.tokenResponse.refresh_token;
   
     // var decodedToken = parseJwt(JSON.stringify(idToken));
     // console.log(decodedToken)
