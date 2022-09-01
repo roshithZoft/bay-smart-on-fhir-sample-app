@@ -87,14 +87,14 @@ function displayToken(token){
     var tokenResponse = JSON.stringify(token, null, "\t");
     var idToken = myApp.smart.state.tokenResponse.id_token;
   
-    var decodedToken = parseJwt(JSON.stringify(idToken));
-    console.log(decodedToken)
+    // var decodedToken = parseJwt(JSON.stringify(idToken));
+    // console.log(decodedToken)
   
     var decodedIdTokenUsingLibrary=jwt_decode(idToken);
     console.log(decodedIdTokenUsingLibrary)
 
     $('#tokenResponse').html(tokenResponse)
-    $('#decodedId').html(JSON.stringify(decodedToken, null, "\t"))
+    $('#decodedId').html(JSON.stringify(decodedIdTokenUsingLibrary, null, "\t"))
 };
 
 function parseJwt(token) {
