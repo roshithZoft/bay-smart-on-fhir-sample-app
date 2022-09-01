@@ -36,6 +36,7 @@ async function patientRequests() {
   $("#address").html(address)
 
   console.log(myApp.smart)
+  console.log(myApp.smart.fhirUser)
 }
 
 async function userRequests() {
