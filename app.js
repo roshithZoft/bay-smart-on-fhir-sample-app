@@ -3,11 +3,12 @@ FHIR.oauth2.ready()
   .then(function(client) {
     myApp.smart = client
     patientRequests()
-    if(myApp.smart.user.fhirUser === undefined)
+    if(myApp.smart.user.fhirUser !== undefined)
     {
       console.log("before userRequest() method")
+      userRequests();
     }
-    userRequests();
+    displayToken(myApp.smart.state.tokenResponse)
   });
 
 async function patientRequests() {
@@ -20,6 +21,7 @@ async function patientRequests() {
     //userRequests(myApp.smart)
     return data
   });
+
   var patientResponse = await patientDetails.json()
   console.log(patientResponse)
 
@@ -45,12 +47,7 @@ async function patientRequests() {
 
 async function userRequests() {
 
-    if(myApp.smart.user.fhirUser === undefined)
-    {
-      console.log("inside userRequest() method")
-    }
-
-  var userDetails = await fetch(myApp.smart.user.fhirUser, {
+    var userDetails = await fetch(myApp.smart.user.fhirUser, {
     headers: {
       "Accept": "application/json+fhir",
       "Authorization": "Bearer " + myApp.smart.state.tokenResponse.access_token
@@ -59,13 +56,13 @@ async function userRequests() {
     return data
   });
 
-
   var userResponse = await userDetails.json()
   console.log(userResponse)
   
   var firstName = userResponse.name ? (userResponse.name[0].given || 'Nil') : 'Nil';
   var lastName = userResponse.name ? (userResponse.name[0].family || 'Nil') : 'Nil';
   var id = userResponse.id || 'Nil';
+  
   var tokenResponse = JSON.stringify(myApp.smart.state.tokenResponse, null, "\t");
   var idToken = myApp.smart.state.tokenResponse.id_token;
 
@@ -79,11 +76,27 @@ async function userRequests() {
   $("#ulastName").html(lastName)
   $("#ufirstName").html(firstName)
   $("#uid").html(id)
+
   $('#tokenResponse').html(tokenResponse)
   $('#decodedId').html(JSON.stringify(decodedToken, null, "\t"))
   console.log(JSON.stringify(myApp.smart, null, "\t"))
 
 }
+
+function displayToken(token){
+    var tokenResponse = JSON.stringify(token, null, "\t");
+    var idToken = myApp.smart.state.tokenResponse.id_token;
+  
+    var decodedToken = parseJwt(JSON.stringify(idToken));
+    console.log(decodedToken)
+  
+    var decodedIdTokenUsingLibrary=jwt_decode(idToken);
+    console.log(decodedIdTokenUsingLibrary)
+
+    $('#tokenResponse').html(tokenResponse)
+    $('#decodedId').html(JSON.stringify(decodedToken, null, "\t"))
+};
+
 function parseJwt(token) {
   // const base64HeaderUrl = token.split('.')[0];
   // const base64Header = base64HeaderUrl.replace(/-/g, '+').replace(/_/g, '/');
