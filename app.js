@@ -18,6 +18,7 @@ async function patientRequests() {
   });
   var patientResponse = await patientDetails.json()
   console.log(patientResponse)
+
   var firstName = patientResponse.name ? (patientResponse.name[0].given || 'Nil') : 'Nil';
   var lastName = patientResponse.name ? (patientResponse.name[0].family || 'Nil') : 'Nil';
   var mobile = patientResponse.telecom ? (patientResponse.telecom[0].value || 'Nil') : 'Nil';
@@ -48,14 +49,15 @@ async function userRequests() {
   });
   var userResponse = await userDetails.json()
   console.log(userResponse)
+  
   var firstName = userResponse.name ? (userResponse.name[0].given || 'Nil') : 'Nil';
   var lastName = userResponse.name ? (userResponse.name[0].family || 'Nil') : 'Nil';
   var id = userResponse.id || 'Nil';
   var tokenResponse = JSON.stringify(myApp.smart.state.tokenResponse, null, "\t");
-  var token = myApp.smart.state.tokenResponse.id_token;
+  var idToken = myApp.smart.state.tokenResponse.id_token;
 
 
-  var decodedToken = parseJwt(JSON.stringify(token));
+  var decodedToken = parseJwt(JSON.stringify(idToken));
   console.log(decodedToken)
 
   $("#ulastName").html(lastName)
@@ -72,7 +74,7 @@ function parseJwt(token) {
   // const headerData = decodeURIComponent(window.atob(base64Header).split('').map(function(c) {
   //   return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   // }).join(''));
-
+ debugger;
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
