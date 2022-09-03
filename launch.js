@@ -3,7 +3,7 @@ function getFhirData() {
     console.log(clientId);
     FHIR.oauth2.authorize({
         'client_id': clientId,
-        'scope': 'user/Patient.read user/Practitioner.read launch openid profile online_access',
+        'scope': 'user/Patient.read user/Practitioner.read launch openid profile online_access fhirUser',
         'redirect_uri': 'https://roshithzoft.github.io/bay-smart-on-fhir-sample-app/app.html'
     });
 }
