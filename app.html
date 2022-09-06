@@ -12,9 +12,9 @@
   <div id="box">
     <table>
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Mobile</th>
+        <th class="title">First Name</th>
+        <th class="title">Last Name</th>
+        <th class="title">Mobile</th>
       </tr>
       <tr>
         <td id="firstName"></td>
@@ -24,9 +24,9 @@
     </table>
     <table>
       <tr>
-        <th>Language</th>
-        <th>Gender</th>
-        <th>DOB</th>
+        <th class="title">Language</th>
+        <th class="title">Gender</th>
+        <th class="title">DOB</th>
       </tr>
       <tr>
         <td id="language"></td>
@@ -36,7 +36,7 @@
     </table>
     <table>
       <tr>
-        <th>Address</th>
+        <th class="title">Address</th>
       </tr>
       <tr>
         <td id="address"></td>
@@ -47,9 +47,9 @@
   <div id="box">
     <table>
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>id</th>
+        <th class="title">First Name</th>
+        <th class="title">Last Name</th>
+        <th class="title">id</th>
       </tr>
       <tr>
         <td id="ufirstName"></td>
@@ -61,18 +61,29 @@
   <h1>Token Display</h1>
   <div id="tokenarea">
     <div class="tokenareadiv">
-      <h1>Access token Response</h1>
+      <h2>Access token Response</h2>
       <div id="tokenResponse" rows="30" cols="60"></div>
     </div>
 
     <div class="tokenareadiv">
-      <h1>Decoded id token</h1>
+      <h2>Decoded id token</h2>
       <div id="decodedId" rows="30" cols="50"></div>
     </div>
 
     <div class="tokenareadiv">
-      <h1>Refresh token</h1>
+      <h2>Refresh token</h2>
       <div id="refreshToken" rows="30" cols="50"></div>
+    </div>
+  </div>
+  <h1>Resources JSON Display</h1>
+  <div class="resourceDisplay">
+    <div>
+      <h2>Patient</h2>
+      <div id="patientJson"></div>
+    </div>
+    <div>
+      <h2>User</h2>
+      <div id="userJson"></div>
     </div>
   </div>
   <script src="app.js"></script>

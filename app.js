@@ -23,8 +23,12 @@ async function patientRequests() {
   }).then(function(data) {
     return data
   });
+  
   var patientResponse = await patientDetails.json()
+  var formattedPatientResponse = formatedJson(patientResponse);
+  document.getElementById('patientJson').innerHTML = formattedPatientResponse;
   console.log(patientResponse)
+  
   var firstName = patientResponse.name ? (patientResponse.name[0].given || 'Nil') : 'Nil';
   var lastName = patientResponse.name ? (patientResponse.name[0].family || 'Nil') : 'Nil';
   var mobile = patientResponse.telecom ? (patientResponse.telecom[0].value || 'Nil') : 'Nil';
@@ -54,6 +58,9 @@ async function userRequests(fhirUserUrl) {
     return data
   });
   var userResponse = await userDetails.json();
+  var formattedUserResponse = formatedJson(userResponse);
+  document.getElementById('userJson').innerHTML = formattedUserResponse;
+
   console.log(userResponse);
 
   var firstName = userResponse.name ? (userResponse.name[0].given || 'Nil') : 'Nil';
@@ -91,12 +98,28 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 };
 
-function formatedJson(jsonValue) {
-  let formattedJSONString = Object.entries(jsonValue)
-    .reduce((acc, [key, value]) => `${acc}
-    <span class='json-key'>"${key}": </span>
-    <span class='value'>"${value}"</span>,<br/>`,
-      `{<br/>`) + `}`;
-  return formattedJSONString;
+function formatedJson(jsonValue, margin = 24) {
+  // let formattedJSONString = Object.entries(jsonValue)
+  //   .reduce((acc, [key, value]) => `${acc}
+  //   <span class='json-key'>"${key}": </span>
+  //   <span class='value'>"${value}"</span>,<br/>`,
+  //     `{<br/>`) + `}`;
+  // return formattedJSONString;
+
+  var formattedJson = '';
+  Object.entries(jsonValue).forEach(([key, value]) => {
+    formattedJson += `<span style='margin-left:${margin}px;' class='json-key'>"${key}"</span><span class="syntax" ${this.scope}>:</span>`
+    if (typeof value == "object") {
+      formattedJson += `<span class='syntax'>{</span><br/>`
+      formattedJson += this.formatedJson(value, margin + 12)
+      formattedJson += `<br/><span style='margin-left:${margin}px;' class='syntax'>}</span>`
+    } else {
+      if (Object.keys(jsonValue).reverse()[0] != key) formattedJson += `<span class='value'>"${value}"</span><span class="syntax">,</span><br/>`
+      else
+        formattedJson += `<span class='value'>"${value}"</span>`
+    }
+  })
+
+  return formattedJson;
 
 }

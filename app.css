@@ -1,60 +1,85 @@
-
+body{
+  margin-left: 2%;
+}
 #label{
-  margin:1em; 
-  padding:1em;
-  display:inline-table;
-}
-p{
-  margin:1em; 
-  padding:1em;
-}
-#box{
- border:1px solid black;
-}
+       margin:1em; 
+       padding:1em;
+       display:inline-table;
+     }
+ p{
+       margin:1em; 
+       padding:1em;
+    }
+    #box{
+      border:1px solid black;
+    }
 
-table {
-font-family: arial, sans-serif;
-width: 100%;
+    table {
+    font-family: arial, sans-serif;
+    width: 100%;
+  }
+  
+  td, th {
+    text-align: left;
+    padding: 8px;
+      width:25%;
+  }
+  tr{
+    width:100%
+  }
+h1{
+  color: #944410;
 }
-
-td, th {
-text-align: left;
-padding: 8px;
- width:25%;
+h2{
+  color: #006100;
 }
-tr{
-width:100%
+.title{
+  color:#006100;
 }
-#tokenarea{
+#tokenarea {
 display: flex;
 }
 .tokenareadiv{
-width: 30%;
-
-border: solid black 2px;
-overflow: auto;
-margin: 1%;
-padding: 2%;
-white-space:nowrap;
-
+   width: 30%;
+  border: solid black 2px;
+   overflow: auto;
+  margin: 1%;
+  padding: 2%;
+   white-space:nowrap;
+    
 }
 
-#tokenResponse{
-font-family: Menlo, monospace;
-width: 100%;
-
-}
+  #tokenResponse{
+    font-family: Menlo, monospace;
+    width: 100%;
+   
+  }
 .json-key {
-color:#a31515;
-margin-left: 8px;
-font-family: monospace;
+  color:#a31515;
+  margin-left: 8px;
+  font-family: monospace;
 }
 
 .value {
-color:#0451a5;
-font-family: monospace;
+  color:#0451a5;
+  font-family: monospace;
 }
 #refreshToken{
-white-space: normal;
-word-break: break-all;
+ white-space: normal;
+  word-break: break-all;
+}
+
+#patientJson , #userJson{
+   width:550px;
+  height: 500px;
+  border: solid black 2px;
+   overflow: auto;
+  margin: 1%;
+  padding: 2%;
+  white-space:nowrap;
+}
+
+.resourceDisplay{
+  display: flex;
+  gap: 5%;
 }
