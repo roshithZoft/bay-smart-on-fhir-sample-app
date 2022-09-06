@@ -4,7 +4,7 @@ function getFhirData() {
     FHIR.oauth2.authorize({
       'client_id': clientId,
       'scope': 'user/Patient.read user/Practitioner.read launch openid profile offline_access fhirUser',
-      'redirect_uri': 'https://SMART-on-FHIRgithubio.abhishekkini.repl.co/app.html'
+      'redirect_uri': 'https://roshithzoft.github.io/bay-smart-on-fhir-sample-app/app.html'
     });
   }
   
