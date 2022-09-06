@@ -1,15 +1,18 @@
 var myApp = {}
+var decodedToken;
 FHIR.oauth2.ready()
   .then(function(client) {
     myApp.smart = client
-    patientRequests()
-    if(myApp.smart.user.fhirUser !== undefined)
-    {
-      console.log("before userRequest() method")
-      userRequests();
-    }
-    displayToken(myApp.smart.state.tokenResponse)
-  });
+    tokenDisplay();
+    patientRequests();
+  })
+  .then(() => {
+    userRequests(decodedToken.fhirUser);
+  })
+  .catch(() => {
+    console.log("Error")
+  }
+  )
 
 async function patientRequests() {
   var patientDetails = await fetch(myApp.smart.state.serverUrl + "/Patient/" + myApp.smart.patient.id, {
@@ -18,13 +21,10 @@ async function patientRequests() {
       "Authorization": "Bearer " + myApp.smart.state.tokenResponse.access_token
     }
   }).then(function(data) {
-    //userRequests(myApp.smart)
     return data
   });
-
   var patientResponse = await patientDetails.json()
   console.log(patientResponse)
-
   var firstName = patientResponse.name ? (patientResponse.name[0].given || 'Nil') : 'Nil';
   var lastName = patientResponse.name ? (patientResponse.name[0].family || 'Nil') : 'Nil';
   var mobile = patientResponse.telecom ? (patientResponse.telecom[0].value || 'Nil') : 'Nil';
@@ -42,12 +42,10 @@ async function patientRequests() {
   $("#address").html(address)
 
   console.log(myApp.smart)
-  console.log(myApp.smart.fhirUser)
 }
 
-async function userRequests() {
-
-    var userDetails = await fetch(myApp.smart.user.fhirUser, {
+async function userRequests(fhirUserUrl) {
+  var userDetails = await fetch(fhirUserUrl, {
     headers: {
       "Accept": "application/json+fhir",
       "Authorization": "Bearer " + myApp.smart.state.tokenResponse.access_token
@@ -55,94 +53,50 @@ async function userRequests() {
   }).then(function(data) {
     return data
   });
+  var userResponse = await userDetails.json();
+  console.log(userResponse);
 
-  var userResponse = await userDetails.json()
-  console.log(userResponse)
-  
   var firstName = userResponse.name ? (userResponse.name[0].given || 'Nil') : 'Nil';
   var lastName = userResponse.name ? (userResponse.name[0].family || 'Nil') : 'Nil';
-  var id = userResponse.id || 'Nil';
-  
-  var tokenResponse = JSON.stringify(myApp.smart.state.tokenResponse, null, "\t");
-  var idToken = myApp.smart.state.tokenResponse.id_token;
-
-
-  var decodedToken = parseJwt(JSON.stringify(idToken));
-  console.log(decodedToken)
-
-  var decodedIdTokenUsingLibrary=jwt_decode(idToken);
-  console.log(decodedIdTokenUsingLibrary)
+  var id = userResponse.id;
 
   $("#ulastName").html(lastName)
   $("#ufirstName").html(firstName)
   $("#uid").html(id)
+}
 
-  $('#tokenResponse').html(tokenResponse)
-  $('#decodedId').html(JSON.stringify(decodedToken, null, "\t"))
-  console.log(JSON.stringify(myApp.smart, null, "\t"))
+async function tokenDisplay() {
+
+  var token = myApp.smart.state.tokenResponse.id_token;
+  decodedToken = parseJwt(JSON.stringify(token));
+  console.log(decodedToken.fhirUser)
+  var tokenResponse = formatedJson(myApp.smart.state.tokenResponse)
+  var formatteddeocoededToken = formatedJson(decodedToken)
+  var refreshToken = JSON.stringify(myApp.smart.state.tokenResponse.refresh_token);
+
+
+
+  document.getElementById('tokenResponse').innerHTML = tokenResponse;
+  document.getElementById('decodedId').innerHTML = formatteddeocoededToken;
+  $('#refreshToken').html(refreshToken)
 
 }
 
-function displayToken(token){
-    var tokenResponse = JSON.stringify(token, null, "\t");
-    var idToken = myApp.smart.state.tokenResponse.id_token;
-    var refreshToken=myApp.smart.state.tokenResponse.refresh_token;
-  
-    // var decodedToken = parseJwt(JSON.stringify(idToken));
-    // console.log(decodedToken)
-  
-    var decodedIdTokenUsingLibrary=jwt_decode(idToken);
-    console.log(decodedIdTokenUsingLibrary)
-
-    $('#tokenResponse').html(tokenResponse)
-    $('#decodedId').html(JSON.stringify(decodedIdTokenUsingLibrary, null, "\t"))
-    $('#refreshToken').html(refreshToken)
-};
-
 function parseJwt(token) {
-  // const base64HeaderUrl = token.split('.')[0];
-  // const base64Header = base64HeaderUrl.replace(/-/g, '+').replace(/_/g, '/');
-  // const headerData = decodeURIComponent(window.atob(base64Header).split('').map(function(c) {
-  //   return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  // }).join(''));
- 
   var base64Url = token.split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
   }).join(''));
-  //jsonPayload.header = headerData;
   return JSON.parse(jsonPayload);
 };
 
+function formatedJson(jsonValue) {
+  let formattedJSONString = Object.entries(jsonValue)
+    .reduce((acc, [key, value]) => `${acc}
+    <span class='json-key'>"${key}": </span>
+    <span class='value'>"${value}"</span>,<br/>`,
+      `{<br/>`) + `}`;
+  return formattedJSONString;
 
-// function parseJwt(token) {
-//   try {
-//     return JSON.parse(atob(token.split('.')[1]));
-//   } catch (e) {
-//     return null;
-//   }
-// };
-// async function userRequests(client) {
-//   var userDetails = await fetch(client.user.fhirUser, {
-//     headers: {
-//       "Accept": "application/json+fhir",
-//       "Authorization": "Bearer " + client.state.tokenResponse.access_token
-//     }
-//   }).then(function(data) {
-//     return data
-//   });
-//   var userResponse = await userDetails.json()
-//   console.log(userResponse)
-//   var firstName = userResponse.name ? (userResponse.name[0].given || 'Nil') : 'Nil';
-//   var lastName = userResponse.name ? (userResponse.name[0].family || 'Nil') : 'Nil';
-//   var id = userResponse.id || 'Nil';
-//   var tokenResponse = JSON.stringify(client.state.tokenResponse, null, "\t");
-
-//   $("#ulastName").html(lastName)
-//   $("#ufirstName").html(firstName)
-//   $("#uid").html(id)
-//   $('#tokenResponse').html(tokenResponse)
-//   console.log(client)
-
-// }
+}

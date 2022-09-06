@@ -4,7 +4,6 @@
 <head>
   <script src='dist/fhir-client-v2.js'></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="jwt-decode.js"></script>
   <link rel="stylesheet" href="app.css">
 </head>
 
@@ -59,20 +58,21 @@
       </tr>
     </table>
   </div>
+  <h1>Token Display</h1>
   <div id="tokenarea">
-    <div>
+    <div class="tokenareadiv">
       <h1>Access token Response</h1>
-      <textarea id="tokenResponse" rows="30" cols="60"></textarea>
+      <div id="tokenResponse" rows="30" cols="60"></div>
     </div>
 
-    <div>
+    <div class="tokenareadiv">
       <h1>Decoded id token</h1>
-      <textarea id="decodedId" rows="30" cols="50"></textarea>
+      <div id="decodedId" rows="30" cols="50"></div>
     </div>
 
-    <div>
+    <div class="tokenareadiv">
       <h1>Refresh token</h1>
-      <textarea id="refreshToken" rows="30" cols="50"></textarea>
+      <div id="refreshToken" rows="30" cols="50"></div>
     </div>
   </div>
   <script src="app.js"></script>

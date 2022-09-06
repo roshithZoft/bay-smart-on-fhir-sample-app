@@ -1,3 +1,4 @@
+
 #label{
   margin:1em; 
   padding:1em;
@@ -26,6 +27,34 @@ width:100%
 }
 #tokenarea{
 display: flex;
-flex-direction: row;
-gap: 5%;
+}
+.tokenareadiv{
+width: 30%;
+
+border: solid black 2px;
+overflow: auto;
+margin: 1%;
+padding: 2%;
+white-space:nowrap;
+
+}
+
+#tokenResponse{
+font-family: Menlo, monospace;
+width: 100%;
+
+}
+.json-key {
+color:#a31515;
+margin-left: 8px;
+font-family: monospace;
+}
+
+.value {
+color:#0451a5;
+font-family: monospace;
+}
+#refreshToken{
+white-space: normal;
+word-break: break-all;
 }
